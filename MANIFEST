@@ -1,6 +1,7 @@
 Changes
 lib/File/Copy/Link.pm
 lib/File/Spec/Link.pm
+Build.PL
 Makefile.PL
 MANIFEST
 README
@@ -10,3 +11,4 @@ t/linked.t
 t/relative.t
 t/safecopylink.t
 copylink
+META.yml                                Module meta-data (added by MakeMaker)

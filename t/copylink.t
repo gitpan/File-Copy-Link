@@ -5,7 +5,7 @@
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
-use Test::More tests => 11;
+use Test::More tests => 6;
 BEGIN { use_ok('File::Copy::Link') };
 
 #########################
@@ -27,27 +27,31 @@ open my $fh, ">", $file or die;
 print $fh "text\n" or die;
 close $fh or die;
 
-ok( symlink('file.txt',$link), "create link");
-ok( -l $link, "is a link");
-ok( !compare($file,$link), "compare file and link");
+SKIP: {
+    skip "'symlink' not implemented", 5 unless eval{ symlink("",""); 1 }; 
 
-open $fh, ">>", $file or die;
-print $fh "more\n" or die;
-close $fh or die;
-ok( !compare($file,$link), "compare changed file and link");
+    die unless
+	symlink('file.txt',$link) && -l $link && !compare($file,$link);
 
-ok( copylink($link), "copylink");
-ok( !(-l $link), "not a link");
-ok( !compare($file,$link), "compare file and copy");
+    open $fh, ">>", $file or die;
+    print $fh "more\n" or die;
+    close $fh or die;
+    !compare($file,$link) or die;
 
-open $fh, ">>", $file or die;
-print $fh "more\n" or die;
-close $fh or die;
+    ok( copylink($link), "copylink");
+    ok( !(-l $link), "not a link");
+    ok( !compare($file,$link), "compare file and copy");
 
-ok( compare($file,$link), "compare changed file and copy");
-unlink $file or die;
-ok( -e $link, "copy not deleted"); 
-unlink $link or die;
-ok( !(-e $link), "copy deleted");
+    open $fh, ">>", $file or die;
+    print $fh "more\n" or die;
+    close $fh or die;
+
+    compare($file,$link) or die;
+    unlink $file or die;
+
+    ok( -e $link, "copy not deleted"); 
+    unlink $link or die;
+    ok( !(-e $link), "copy deleted");
+}
 
 END { rmtree $dir if $dir };

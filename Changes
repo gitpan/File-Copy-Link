@@ -1,10 +1,16 @@
 Revision history for Perl extension File::Copy::Link.
 
+0.06	2005-02-01
+	Added skip to tests for 'symlink' not implemented.
+	Added resolve_path and resolve_all
+
 0.05	2003-08-10
-	Added full_resolve following email from Jasper Cramwinckel
+	Added full_resolve, following email from Jasper Cramwinckel
 
 0.04	2003-05-09
 	Calculates dist VERSION using both File/*/Link.pm
+	Renamed copylink as safecopylink
+	 and reimplemented copylink using open-and-delete.
 
 0.02	2003-05-06
 	Added File::Spec::Link->resolve

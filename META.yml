@@ -1,0 +1,18 @@
+--- #YAML:1.0
+name: File-Copy-Link
+version: 0.06
+author:
+  - Robin Barker <rmb1@npl.co.uk>
+abstract: ~
+license: perl
+requires:
+  File::Copy: 0
+  File::Spec: 0
+provides:
+  File::Copy::Link:
+    file: lib/File/Copy/Link.pm
+    version: 0.02
+  File::Spec::Link:
+    file: lib/File/Spec/Link.pm
+    version: 0.04
+generated_by: Module::Build version 0.2604

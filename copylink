@@ -3,7 +3,7 @@
 use strict;
 use File::Copy::Link;
 
-warn "$0: no linkss\n" unless @ARGV;
+warn "$0: no links\n" unless @ARGV;
 copylink for @ARGV;
 __END__
 
