@@ -5,7 +5,7 @@ use List::Util qw(sum);
 Module::Build->new (
     module_name	=>	'File::Copy::Link',
     dist_version =>	do{ require ExtUtils::MM;
-			    sprintf("%.2f",
+			    sprintf("%.3f",
 				sum map {MM->parse_version($_)}
 					<lib/File/*/Link.pm>) },
     license =>		'perl',	

@@ -1,8 +1,17 @@
 Revision history for Perl extension File::Copy::Link.
 
+0.061	2005-02-25
+	Reimplemented linked, chopfile, resolve, resolve_all 
+	 using a File::Spec::Link object to store the path.
+	 This avoids readlink('dir/') which may be causing test 
+	 failures; ultimately trying to avoid cpan-testers failures.
+	Rewrote README to update to 0.06 (can build using M::B)
+	 and then marking 0.061 as tester fodder.
+
 0.06	2005-02-01
 	Added skip to tests for 'symlink' not implemented.
 	Added resolve_path and resolve_all
+	Build using Module::Build or make (ExtUtils::MakeMaker)
 
 0.05	2003-08-10
 	Added full_resolve, following email from Jasper Cramwinckel

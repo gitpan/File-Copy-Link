@@ -2,16 +2,16 @@
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
-          'NAME' => 'File::Copy::Link',
-          'VERSION' => '0.06',
-          'PREREQ_PM' => {
-                           'File::Copy' => '0',
-                           'File::Spec' => '0'
-                         },
+          'PL_FILES' => {},
           'INSTALLDIRS' => 'site',
+          'NAME' => 'File::Copy::Link',
           'EXE_FILES' => [
                            'copylink'
                          ],
-          'PL_FILES' => {}
+          'VERSION' => '0.061',
+          'PREREQ_PM' => {
+                           'File::Copy' => 0,
+                           'File::Spec' => 0
+                         }
         )
 ;

@@ -1,6 +1,6 @@
---- #YAML:1.0
+---
 name: File-Copy-Link
-version: 0.06
+version: 0.061
 author:
   - Robin Barker <rmb1@npl.co.uk>
 abstract: ~
@@ -14,5 +14,5 @@ provides:
     version: 0.02
   File::Spec::Link:
     file: lib/File/Spec/Link.pm
-    version: 0.04
-generated_by: Module::Build version 0.2604
+    version: 0.041
+generated_by: Module::Build version 0.2608
