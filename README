@@ -1,0 +1,31 @@
+File/Spec/Link version 0.02
+===========================
+
+The distribution File/Spec/Link includes the modules
+File::Spec::Link and File::Copy::Link and the 
+script copylink.  They include routines to read and copy
+links.
+
+INSTALLATION
+
+To install this module type the following:
+
+   perl Makefile.PL
+   make
+   make test
+   make install
+
+DEPENDENCIES
+
+This module requires these other modules and libraries:
+
+  File::Spec
+  File::Copy
+
+COPYRIGHT AND LICENCE
+
+Copyright (C) 2003 Robin Barker
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself. 
+

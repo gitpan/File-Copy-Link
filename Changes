@@ -1,0 +1,11 @@
+Revision history for Perl extension File::Spec::Link.
+
+0.02	2003-05-06
+	Added File::Spec::Link->resolve
+	Added tests (and renamed 1.t and copylink.t)
+	Added documentation
+ 
+0.01  Tue Apr 29 16:42:12 2003
+	- original version; created by h2xs 1.22 with options
+		-XAn File::Spec::Link
+

@@ -1,0 +1,11 @@
+Changes
+lib/File/Copy/Link.pm
+lib/File/Spec/Link.pm
+Makefile.PL
+MANIFEST
+README
+t/copylink.t
+t/chopfile.t
+t/linked.t
+t/relative.t
+copylink
