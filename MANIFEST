@@ -4,8 +4,9 @@ lib/File/Spec/Link.pm
 Makefile.PL
 MANIFEST
 README
-t/copylink.t
 t/chopfile.t
+t/copylink.t
 t/linked.t
 t/relative.t
+t/safecopylink.t
 copylink

@@ -5,7 +5,7 @@ use warnings;
 
 use File::Spec ();
 our @ISA = qw(File::Spec);
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 sub linked { 
     my($spec, $link) = @_;
@@ -39,6 +39,13 @@ sub resolve {
     return $file;
 }
 
+sub full_resolve {
+    my($spec, $file) = @_;
+    my $abs = do { require Cwd; Cwd::abs_path($file) };
+    return $spec->file_name_is_absolute($file)
+	    ? $abs : $spec->abs2rel($abs);
+} 
+    
 1;
 __END__
 # Below is stub documentation for your module. You'd better edit it!
@@ -55,6 +62,8 @@ File::Spec::Link - Perl extension for reading and resolving symbolic links
     my $dirname = File::Spec::Link->chopfile($file);
     my $newname = File::Spec::Link->relative_to_file($path, $link);
   
+    my $realname = File::Spec::Link->full_resolve($file);
+
 =head1 DESCRIPTION
 
 C<File::Spec::Link> is an extension to C<File::Spec>, adding methods for
@@ -64,12 +73,12 @@ resolving symbolic links; it was created to implement C<File::Copy::Link>.
 
 =item C<< ->linked($link) >>
 
-Returns the filename linked to by <$link>: by C<readlink>ing C<$link>,
+Returns the filename linked to by C<$link>: by C<readlink>ing C<$link>,
 and resolving that path relative to the directory of C<$link>. 
 
 =item C<< ->resolve($link) >>
 
-Returns the non-link ultimately linked to by <$link>, by repeatedly
+Returns the non-link ultimately linked to by C<$link>, by repeatedly
 calling C<linked>.  Returns C<undef> if the link can not be resolved.
 
 =item C<< ->chopfile($file) >>
@@ -81,6 +90,13 @@ and returning (the volumne and) directory parts.
 
 Returns the path of C<$path> relative to the directory of file
 C<$file>.  If C<$path> is absolute, just returns C<$path>.
+
+=item C<< ->full_resolve($file) >>
+
+Returns the filename of C<$file> with all links in the path resolved.
+
+This sub uses C<Cwd::abs_path> and is independent of the rest of
+C<File::Spec::Link>. 
 
 =back
  

@@ -5,7 +5,7 @@
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
-use Test::More tests => 6;
+use Test::More tests => 11;
 BEGIN { use_ok('File::Spec::Link') };
 
 #########################
@@ -40,5 +40,25 @@ is( File::Spec->canonpath(File::Spec::Link->linked($loopx)),
 is( File::Spec->canonpath(File::Spec::Link->resolve($link)),
 	File::Spec->canonpath($file), "resolve - file"); 
 ok( !defined(File::Spec::Link->resolve($loopx)), "resolve - loop"); 
+
+my $subdir = File::Spec->catdir($dir,'testdir');
+my $linked = File::Spec->catdir($dir,'linkdir');
+my $target = File::Spec->catfile($subdir,'file.txt');
+my $unresolved = File::Spec->catfile($linked,'file.txt');
+
+mkpath $subdir or die;
+open $fh, ">", $target or die "$target - $!\n";
+print $fh "test\ntest\n" or die;
+close $fh or die;
+
+ok( symlink( 'testdir', $linked ), "create directory link");
+is( File::Spec->canonpath(File::Spec::Link->resolve($linked)),
+	File::Spec->canonpath($subdir), "resolve - directory");
+is( File::Spec->canonpath(File::Spec::Link->resolve($unresolved)),
+	File::Spec->canonpath($unresolved), "resolve - embedded link");
+is( File::Spec->canonpath(File::Spec::Link->full_resolve($linked)),
+	File::Spec->canonpath($subdir), "full_resolve - directory");
+is( File::Spec->canonpath(File::Spec::Link->full_resolve($unresolved)),
+	File::Spec->canonpath($target), "full_resolve - file");
 
 END { rmtree $dir if $dir };
