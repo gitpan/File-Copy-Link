@@ -1,5 +1,8 @@
 Revision history for Perl extension File::Copy::Link.
 
+0.80	2006-01-12
+	Add t/pod{,-coverage}.t and added POD to pass tests!
+	
 0.061	2005-02-25
 	Reimplemented linked, chopfile, resolve, resolve_all 
 	 using a File::Spec::Link object to store the path.

@@ -5,7 +5,7 @@ use warnings;
 
 use File::Spec ();
 our @ISA = qw(File::Spec);
-our $VERSION = 0.04_1;
+our $VERSION = 0.05;
 
 # over-ridden class method - just a debugging wrapper
 # 
@@ -217,38 +217,38 @@ resolving symbolic links; it was created to implement C<File::Copy::Link>.
 
 =over
 
-=item C<< ->linked($link) >>
+=item C<< linked($link) >>
 
 Returns the filename linked to by C<$link>: by C<readlink>ing C<$link>,
 and resolving that path relative to the directory of C<$link>. 
 
-=item C<< ->resolve($link) >>
+=item C<< resolve($link) >>
 
 Returns the non-link ultimately linked to by C<$link>, by repeatedly
 calling C<linked>.  Returns C<undef> if the link can not be resolved.
 
-=item C<< ->chopfile($file) >>
+=item C<< chopfile($file) >>
 
 Returns the directory of C<$file>, by splitting the path of C<$file>
 and returning (the volumne and) directory parts.
 
-=item C<< ->relative_to_file($path, $file) >>
+=item C<< relative_to_file($path, $file) >>
 
 Returns the path of C<$path> relative to the directory of file
 C<$file>.  If C<$path> is absolute, just returns C<$path>.
 
-=item C<< ->resolve_all($file) >>
+=item C<< resolve_all($file) >>
 
 Returns the filename of C<$file> with all links in the path resolved,
 wihout using C<Cwd>.
 
-=item C<< ->full_resolve($file) >>
+=item C<< full_resolve($file) >>
 
 Returns the filename of C<$file> with all links in the path resolved.
 
 This sub tries to use C<Cwd::abs_path> via C<< ->resolve_path >>.
 
-=item C<< ->resolve_path($file) >>
+=item C<< resolve_path($file) >>
 
 Returns the filename of C<$file> with all links in the path resolved.
 
@@ -257,9 +257,99 @@ C<File::Spec::Link>.
 
 =back
  
+=head2 Object methods 
+
+=over 4
+
+=item C<< new([$path]) >>
+
+create new path object: stores path as a list
+
+=item C<< path >>
+
+returns path as a string, using catpath
+
+=item C<< canonical >>
+
+returns canonical path, using canonpath
+
+=item C<< vol >>
+
+returns volume element of path, see File::Spec->splitpath
+
+=item C<< dir >>
+
+returns directory element of path, as a string, see File::Spec->splitpath
+
+=item C<< dirs >>
+
+return list of directory components in path, see File::Spec->splitdir
+	
+=item C<< pop >>
+
+remove last component of the path 
+
+=item C<< push($file) >>
+
+add a file component to the path, ignoring empty strings
+
+=item C<< add($file) >>
+
+add a component to the path:
+treating C<updir> as C<pop>,
+and ignoring C<curdir> and empty strings
+
+=item C<< split($path) >>
+
+populate a path object, using splitpath
+
+=item C<< chop >>
+
+remove and return a file component from path, 
+an empty string returns means this was root dir.
+    
+=item C<< relative($path) >>
+
+replace the path object with the supplied path,
+where the new path is relative to the path object
+
+=item C<< follow >>
+
+follow the link, where the path object is a link 
+
+=item C<< resolved >>
+
+resolve the path object, by repeatedly following links
+ 
+=item C<< resolvedir >>
+
+resolve the links at all component levels  within the path object
+
+=back
+
+=head2 Other class methods
+
+=over 4
+
+=item C<< canonpath($path) >>
+
+Wrapper round File::Spec::canonpath, fatal if empty input
+
+=item C<< catdir(@dirs) >>
+
+Wrapper round File::Spec::catdir, returns C<curdir> from empty list
+
+=item C<< splitlast($path) >>
+
+Get component from C<$path> (using C<chop>)
+and returns remaining path and compenent, as strings.
+[Not used]
+
+=back
+
 =head2 EXPORT
 
-None - all subs are class methods for C<File::Spec::Link>.
+None - all subs are methods for C<File::Spec::Link>.
 
 =head1 SEE ALSO
 
@@ -271,7 +361,7 @@ Robin Barker, E<lt>Robin.Barker@npl.co.ukE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003, 2005 by Robin Barker
+Copyright 2003, 2005, 2006 by Robin Barker
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 

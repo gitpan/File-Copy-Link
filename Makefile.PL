@@ -8,7 +8,7 @@ WriteMakefile
           'EXE_FILES' => [
                            'copylink'
                          ],
-          'VERSION' => '0.061',
+          'VERSION' => '0.080',
           'PREREQ_PM' => {
                            'File::Copy' => 0,
                            'File::Spec' => 0

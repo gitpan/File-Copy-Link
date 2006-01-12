@@ -8,7 +8,7 @@ require Exporter;
 our @ISA = qw(Exporter);
 our @EXPORT = qw(copylink);
 our @EXPORT_OK = qw(safecopylink);
-our $VERSION = '0.02';
+our $VERSION = '0.03';
 
 sub copylink(;$) {
     local $_ = @_ ? shift : $_;			# default to $_ 
@@ -47,14 +47,22 @@ linked file.
 
 =head1 DESCRIPTION
 
-C<copylink> reads the filename linked to by the argument and replaced 
+=over 4
+
+=item C<copylink>
+
+reads the filename linked to by the argument and replaced 
 the link with a copy of the file.  It opens a filehandle to read from
 the link, deletes the link, and then copies the filehandle back to the
 link.
 
-C<safecopylink> does the same as C<copylink> but without the open-and-delete
+=item C<safecopylink>
+
+does the same as C<copylink> but without the open-and-delete
 manouvre.  Instead, it uses C<File::Spec::Link> to find the target of the
 link and copies from there.
+
+=back
 
 This module is mostly a wrapper round C<File::Spec::Link::linked> and 
 C<File::Copy::copy>, the functionality is available in a command line
@@ -74,7 +82,7 @@ Robin Barker, E<lt>Robin.Barker@npl.co.ukE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003 by Robin Barker
+Copyright 2003, 2006 by Robin Barker
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
