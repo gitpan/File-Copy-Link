@@ -1,5 +1,9 @@
+#!perl
 # Before `make install' is performed this script should be runnable with
 # `make test'. After `make install' it should work as `perl chopfile.t'
+
+use strict;
+use warnings;
 
 #########################
 
@@ -20,3 +24,4 @@ like( File::Spec::Link->chopfile('file.ext'),
 	qr(^$curr\W?\z),
 	"chopfile(foo.ext)");
 
+# $Id: chopfile.t 82 2006-07-26 08:55:37Z rmb1 $

@@ -4,8 +4,8 @@ use strict;
 use warnings;
 
 use File::Spec ();
-our @ISA = qw(File::Spec);
-our $VERSION = 0.05;
+use base q(File::Spec); 
+our $VERSION = 0.06;
 
 # over-ridden class method - just a debugging wrapper
 # 
@@ -18,34 +18,35 @@ sub canonpath {
     );
     return $path;
 }
-sub catdir { my $spec = shift; @_ ? $spec->SUPER::catdir(@_) : $spec->curdir }
+sub catdir { my $spec = shift; return @_ ? $spec->SUPER::catdir(@_) : $spec->curdir }
 
 # new class methods - implemented via objects
 # 
 sub linked { 
     my $self = shift -> new(@_); 
     return unless $self -> follow; 
-    $self -> path; 
+    return $self -> path; 
 }
 sub resolve { 
     my $self = shift -> new(@_); 
     return unless $self -> resolved; 
-    $self -> path; 
+    return $self -> path; 
 }
 sub resolve_all { 
     my $self = shift -> new(@_); 
     return unless $self -> resolvedir; 
-    $self -> path; 
+    return $self -> path; 
 }
 sub relative_to_file { 
     my($spec, $path) = splice @_, 0, 2;
     my $self = $spec -> new(@_); 
     return unless $self -> relative($path);
-    $self -> path;
+    return $self -> path;
 }
 sub chopfile {
     my $self = shift -> new(@_);
     return $self -> path if length($self -> chop); 
+    return
 }
 
 # other new class methods - implemented via Cwd
@@ -68,8 +69,8 @@ sub resolve_path {
 # 
 sub splitlast { 
     my $self = shift -> new(@_);
-    my $last = $self -> chop;
-    return ($self -> path, $last);
+    my $last_path = $self -> chop;
+    return ($self -> path, $last_path);
 }
 
 # object methods: 
@@ -81,27 +82,28 @@ sub splitlast {
 sub new { 
     my $self = bless { }, shift; 
     $self -> split(shift) if @_; 
-    $self; 
+    return $self; 
 }
 sub path { 
     my $self = shift; 
-    $self -> catpath( $self->vol, $self->dir, '' ); 
+    return $self -> catpath( $self->vol, $self->dir, q{} ); 
 }
-sub canonical { my $self = shift; $self -> canonpath( $self -> path ); }
-sub vol { my $vol = shift->{vol}; return defined $vol ? $vol : '' } 
-sub dir { my $self = shift; $self -> catdir( $self -> dirs ); }
-sub dirs { my $dirs = shift->{dirs}; return $dirs ? @$dirs : () }
+sub canonical { my $self = shift; return $self -> canonpath( $self -> path ); }
+sub vol { my $vol = shift->{vol}; return defined $vol ? $vol : q{} } 
+sub dir { my $self = shift; return $self -> catdir( $self -> dirs ); }
+sub dirs { my $dirs = shift->{dirs}; return $dirs ? @{$dirs} : () }
 	
 sub add {
     my($self, $file) = @_;
     if( $file eq $self -> curdir ) { }
     elsif( $file eq $self -> updir ) { $self -> pop }
     else { $self -> push($file); }
+    return;
 }
 sub pop {
     my $self = shift;
     my @dirs = $self -> dirs;
-    if( !@dirs or $dirs[-1] eq $self -> updir ) {
+    if( not @dirs or $dirs[-1] eq $self -> updir ) {
 	push @{$self->{dirs}}, $self -> updir;
     }
     elsif( length $dirs[-1] and $dirs[-1] ne $self -> curdir) {
@@ -113,12 +115,14 @@ sub pop {
 			length $dirs[-1] ? $dirs[-1]: "empty dir"
 	);
     }
+    return;
 }
 
 sub push {
     my $self = shift;
     my $file = shift;
     CORE::push @{$self->{dirs}}, $file if length $file;
+    return;
 }
 sub split {
     my($self, $path) = @_;
@@ -126,6 +130,7 @@ sub split {
     $self->{vol} = $vol;
     $self->{dirs} = [ $self->splitdir($dir) ];
     $self->push($file);
+    return;
 }
 sub chop {
     my $self = shift;
@@ -135,7 +140,7 @@ sub chop {
 	last if @$dirs == 1 and not length $dirs->[0];	# path = '/'
 	last if length($file = CORE::pop @$dirs);
     }
-    $file;    
+    return $file;    
 }    
     
 sub follow {
@@ -162,7 +167,7 @@ sub relative {
     # to be read by $self->path; but would need to 
     # unset $self->{path} whenever it becomes invalid
     $self->split($path);
-    1;
+    return 1;
 }
 
 sub resolved {
@@ -172,7 +177,7 @@ sub resolved {
 	return if $seen->{$self->canonical}++;
 	return unless $self->follow;
     }
-    1;
+    return 1;
 }
 
 sub resolvedir {
@@ -186,7 +191,7 @@ sub resolvedir {
 	unshift @path, $last;
     }
     $self->add($_) for @path;    
-    1;
+    return 1;
 }
 
 1;
@@ -367,3 +372,5 @@ This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
 
 =cut
+
+$Id: Link.pm 82 2006-07-26 08:55:37Z rmb1 $

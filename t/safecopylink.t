@@ -1,5 +1,9 @@
+#!perl
 # Before `make install' is performed this script should be runnable with
 # `make test'. After `make install' it should work as `perl safecopylink.t'
+
+use strict;
+use warnings;
 
 #########################
 
@@ -14,11 +18,9 @@ BEGIN { use_ok('File::Copy::Link', qw(safecopylink)) };
 # its man page ( perldoc Test::More ) for help writing this test script.
 
 use File::Compare;
-use File::Path;
+use File::Temp qw(tempdir);
 
-my $dir = 'test';
-if( -e $dir ) { rmtree $dir or die }
-mkpath $dir or die;
+my $dir = tempdir();
 
 my $file = File::Spec->catfile($dir,'file.txt');
 my $link = File::Spec->catfile($dir,'link.lnk');
@@ -36,7 +38,7 @@ SKIP: {
     open $fh, ">>", $file or die;
     print $fh "more\n" or die;
     close $fh or die;
-    !compare($file,$link) or die;
+    not compare($file,$link) or die;
 
     ok( safecopylink($link), "safecopylink");
     ok( !(-l $link), "not a link");
@@ -54,4 +56,4 @@ SKIP: {
     ok( !(-e $link), "copy deleted");
 }
 
-END { rmtree $dir if $dir };
+# $Id: safecopylink.t 82 2006-07-26 08:55:37Z rmb1 $

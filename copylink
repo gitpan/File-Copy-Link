@@ -1,9 +1,11 @@
 #!perl
 
 use strict;
-use File::Copy::Link;
+use warnings;
+use File::Copy::Link qw(copylink);
 
 warn "$0: no links\n" unless @ARGV;
+
 copylink for @ARGV;
 __END__
 
@@ -41,4 +43,4 @@ it under the same terms as Perl itself.
 
 =cut
 
-
+$Id: copylink 82 2006-07-26 08:55:37Z rmb1 $

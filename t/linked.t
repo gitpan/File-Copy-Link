@@ -1,5 +1,9 @@
+#!perl
 # Before `make install' is performed this script should be runnable with
 # `make test'. After `make install' it should work as `perl linked.t'
+
+use strict;
+use warnings;
 
 #########################
 
@@ -13,18 +17,19 @@ BEGIN { use_ok('File::Spec::Link') };
 # Insert your test code below, the Test::More module is use()ed here so read
 # its man page ( perldoc Test::More ) for help writing this test script.
 
-use File::Path;
+use Cwd ();
+use File::Temp qw(tempdir);
 
+chdir tempdir() or die;
 my $dir = 'test';
-if( -e $dir ) { rmtree $dir or die }
-mkpath $dir or die;
+mkdir $dir or die;
 
 my $file = File::Spec->catfile($dir,'file.txt');
 my $link = File::Spec->catfile($dir,'link.lnk');
 my $loopx = File::Spec->catfile($dir,'x.lnk');
 my $loopy = File::Spec->catfile($dir,'y.lnk');
 
-open my $fh, ">", $file or die;
+open my $fh, ">", $file or die $!;
 print $fh "text\n" or die;
 close $fh or die;
 
@@ -50,7 +55,7 @@ SKIP: {
     my $target = File::Spec->catfile($subdir,'file.txt');
     my $unresolved = File::Spec->catfile($linked,'file.txt');
 
-    mkpath $subdir or die;
+    mkdir $subdir or die;
     open $fh, ">", $target or die "$target - $!\n";
     print $fh "test\ntest\n" or die;
     close $fh or die;
@@ -64,7 +69,7 @@ SKIP: {
 
     SKIP: {
 	skip "Can't determine directory separator", 2
-	    unless File::Spec->catdir('abc','xyz') =~ /^abc(\W+)xyz\z/;
+	    unless File::Spec->catdir('abc','xyz') =~ /\A abc (\W+) xyz \z/msx;
 	my $sep = $1;
 
 	is( File::Spec->canonpath(File::Spec::Link->linked($linked.$sep)),
@@ -100,4 +105,4 @@ SKIP: {
 
 }
 
-END { rmtree $dir if $dir };
+# $Id: linked.t 82 2006-07-26 08:55:37Z rmb1 $

@@ -1,6 +1,10 @@
-Revision history for Perl extension File::Copy::Link.
+Revision history for Perl distribution File-Copy-Link.
+$Id: Changes 82 2006-07-26 08:55:37Z rmb1 $
 
-0.80	2006-01-12
+0.100 	2006-07-20
+	Meet (some) Perl Best Practices, as indicated by perlcritic.
+
+0.800	2006-01-12
 	Add t/pod{,-coverage}.t and added POD to pass tests!
 	
 0.061	2005-02-25

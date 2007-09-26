@@ -1,5 +1,9 @@
+#!perl
 # Before `make install' is performed this script should be runnable with
 # `make test'. After `make install' it should work as `perl relative.t'
+
+use strict;
+use warnings;
 
 #########################
 
@@ -26,4 +30,5 @@ is( File::Spec->canonpath(
     File::Spec->canonpath($path),
     "relative_to_file(/dir/foo.ext,dir1/dir2/bar.xyz)");
 
+# $Id: relative.t 82 2006-07-26 08:55:37Z rmb1 $
 

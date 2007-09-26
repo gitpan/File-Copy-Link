@@ -4,11 +4,11 @@ WriteMakefile
 (
           'PL_FILES' => {},
           'INSTALLDIRS' => 'site',
-          'NAME' => 'File::Copy::Link',
+          'DISTNAME' => 'File-Copy-Link',
           'EXE_FILES' => [
                            'copylink'
                          ],
-          'VERSION' => '0.080',
+          'VERSION' => '0.100',
           'PREREQ_PM' => {
                            'File::Copy' => 0,
                            'File::Spec' => 0

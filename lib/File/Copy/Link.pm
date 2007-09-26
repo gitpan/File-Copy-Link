@@ -1,31 +1,32 @@
 package File::Copy::Link;
 
 use strict;
+use warnings;
+ 
 use Carp;
 use File::Copy ();
-
+use base qw(Exporter);
 require Exporter;
-our @ISA = qw(Exporter);
-our @EXPORT = qw(copylink);
-our @EXPORT_OK = qw(safecopylink);
-our $VERSION = '0.03';
 
-sub copylink(;$) {
-    local $_ = @_ ? shift : $_;			# default to $_ 
+our @EXPORT_OK = qw(copylink safecopylink);
+our $VERSION = '0.04';
+
+sub copylink {
+    local $_ = @_ ? shift : $_;                 # default to $_ 
     croak "$_ not a link\n" unless -l;
     open my $fh, '<', $_ or croak "Can't open link $_: $!\n"; 
     unlink or croak "Can't unlink link $_: $!\n";
-    File::Copy::copy $fh, $_ or croak "copy($fh $_) failed: $!\n";
+    return File::Copy::copy $fh, $_ or croak "copy($fh $_) failed: $!\n";
 }
 
-sub safecopylink(;$) {
-    local $_ = @_ ? shift : $_;			# default to $_ 
+sub safecopylink {
+    local $_ = @_ ? shift : $_;                 # default to $_ 
     croak "$_ not a link\n" unless -l;
     require File::Spec::Link;
     my $orig = File::Spec::Link->linked($_);
     croak "$_ link problem\n" unless defined $orig;
     unlink or croak "Can't unlink link $_: $!\n";
-    File::Copy::copy $orig, $_ or croak "copy($orig $_) failed: $!\n";
+    return File::Copy::copy $orig, $_ or croak "copy($orig $_) failed: $!\n";
 }
 
 1;
@@ -88,3 +89,5 @@ This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
 
 =cut
+
+$Id: Link.pm 82 2006-07-26 08:55:37Z rmb1 $
