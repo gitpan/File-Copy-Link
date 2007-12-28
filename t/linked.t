@@ -89,20 +89,37 @@ SKIP: {
     is( File::Spec->canonpath(File::Spec::Link->resolve_all(
 		File::Spec->catfile($dir,File::Spec->updir,$unresolved))),
 	File::Spec->canonpath($target), "resolve_all - file");
-    is( File::Spec->canonpath(File::Spec::Link->resolve_all(
+
+    my $hasCwd =  eval { require Cwd };
+    SKIP: {
+	skip "No Cwd!", 1 unless $hasCwd;
+	is( File::Spec->canonpath(File::Spec::Link->resolve_all(
 		File::Spec->rel2abs($unresolved))),
-	Cwd::abs_path($target), "resolve_all - file absolute");
+	    File::Spec->catfile(Cwd::abs_path($subdir),'file.txt'),
+	    "resolve_all - file absolute");
+    }
 
     is( File::Spec->canonpath(File::Spec::Link->full_resolve($linked)),
 	File::Spec->canonpath($subdir), "full_resolve - directory");
     is( File::Spec->canonpath(File::Spec::Link->full_resolve($unresolved)),
 	File::Spec->canonpath($target), "full_resolve - file");
 
-    is( File::Spec->canonpath(File::Spec::Link->resolve_path($linked)),
-	File::Spec->canonpath($subdir), "resolve_path - directory");
-    is( File::Spec->canonpath(File::Spec::Link->resolve_path($unresolved)),
-	File::Spec->canonpath($target), "resolve_path - file");
+    if( $hasCwd ) {
+	is( File::Spec->canonpath(File::Spec::Link->resolve_path($linked)),
+	    File::Spec->canonpath($subdir), "resolve_path - directory");
+    }
+    else {
+	ok( !File::Spec::Link->resolve_path($linked),
+	    "resolve_path - directory");
+    }
 
+	
+    SKIP: {
+	my $got = File::Spec::Link->resolve_path($unresolved);
+	skip "Old Cwd", 1 if !$hasCwd or (!$got and  $Cwd::VERSION < 2.18);
+	is( File::Spec->canonpath($got),
+	    File::Spec->canonpath($target), "resolve_path - file");
+    }
 }
 
-# $Id: linked.t 82 2006-07-26 08:55:37Z rmb1 $
+# $Id: linked.t 166 2007-12-28 19:57:22Z rmb1 $

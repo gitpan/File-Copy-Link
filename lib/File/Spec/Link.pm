@@ -5,7 +5,7 @@ use warnings;
 
 use File::Spec ();
 use base q(File::Spec); 
-our $VERSION = 0.06;
+our $VERSION = 0.07;
 
 # over-ridden class method - just a debugging wrapper
 # 
@@ -59,8 +59,25 @@ sub full_resolve {
 
 sub resolve_path {
     my($spec, $file) = @_;
-    my $path = eval { require Cwd; Cwd::abs_path($file) };
-    return unless defined $path; 
+    my $path = do {
+	local $SIG{__WARN__} = sub { 
+	    if ($_[0] =~ /^opendir\b/			and
+		$_[0] =~ /\bNot\s+a\s+directory\b/	and
+	    	$Cwd::VERSION < 2.18		 	and
+		not -d $file)
+	    {
+		warn <<WARN;
+Cwd::abs_path() only works on directories, not: $file
+Use Cwd v2.18 or later
+WARN
+	    }
+	    else {
+		warn "$Cwd::VERSION: $_[0]"
+	    }
+	};
+	eval { require Cwd } && Cwd::abs_path($file) 
+    };
+    return unless $path; 
     return $spec->file_name_is_absolute($file)
 	    ? $path : $spec->abs2rel($path);
 } 
@@ -373,4 +390,4 @@ it under the same terms as Perl itself.
 
 =cut
 
-$Id: Link.pm 82 2006-07-26 08:55:37Z rmb1 $
+$Id: Link.pm 166 2007-12-28 19:57:22Z rmb1 $

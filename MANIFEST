@@ -1,6 +1,7 @@
 Changes
 lib/File/Copy/Link.pm
 lib/File/Spec/Link.pm
+build_args.pl
 Build.PL
 Makefile.PL
 MANIFEST

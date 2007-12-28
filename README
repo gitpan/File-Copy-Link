@@ -1,12 +1,13 @@
-File-Copy-Link version 0.100
+File-Copy-Link version 0.110
 ============================
 
 The distribution File-Copy-Link includes the modules
 File::Spec::Link and File::Copy::Link and the script
 copylink.  They include routines to read and copy links.
 
-Version 0.100 includes changes to meet (some) Perl Best
-Practices, as indicated by perlcritic.
+Version 0.110 includes changes for old Cwd.
+Version 0.100 includes changes to meet (some)
+Perl Best Practices, as indicated by perlcritic.
 
 INSTALLATION
 
@@ -46,4 +47,4 @@ Copyright (C) 2003, 2005, 2006 Robin Barker
 This library is free software; you can redistribute it
 and/or modify it under the same terms as Perl itself.
 
-$Id: README 82 2006-07-26 08:55:37Z rmb1 $
+$Id: README 166 2007-12-28 19:57:22Z rmb1 $

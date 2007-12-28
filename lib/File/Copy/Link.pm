@@ -35,8 +35,8 @@ __END__
 
 =head1 NAME
 
-File::Copy::Link - Perl extension for replacing a link by a copy of the
-linked file.
+File::Copy::Link -
+Perl extension for replacing a link by a copy of the linked file.
 
 =head1 SYNOPSIS
 
@@ -90,4 +90,4 @@ it under the same terms as Perl itself.
 
 =cut
 
-$Id: Link.pm 82 2006-07-26 08:55:37Z rmb1 $
+$Id: Link.pm 167 2007-12-28 22:03:18Z rmb1 $

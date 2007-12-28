@@ -19,6 +19,7 @@ BEGIN { use_ok('File::Copy::Link', qw(safecopylink)) };
 
 use File::Compare;
 use File::Temp qw(tempdir);
+use File::Spec; 
 
 my $dir = tempdir();
 
@@ -56,4 +57,4 @@ SKIP: {
     ok( !(-e $link), "copy deleted");
 }
 
-# $Id: safecopylink.t 82 2006-07-26 08:55:37Z rmb1 $
+# $Id: safecopylink.t 166 2007-12-28 19:57:22Z rmb1 $
