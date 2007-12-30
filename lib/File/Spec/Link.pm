@@ -5,7 +5,8 @@ use warnings;
 
 use File::Spec ();
 use base q(File::Spec); 
-our $VERSION = 0.07;
+
+our $VERSION = 0.071;
 
 # over-ridden class method - just a debugging wrapper
 # 
@@ -72,7 +73,7 @@ Use Cwd v2.18 or later
 WARN
 	    }
 	    else {
-		warn "$Cwd::VERSION: $_[0]"
+		warn $_[0]
 	    }
 	};
 	eval { require Cwd } && Cwd::abs_path($file) 
@@ -383,11 +384,11 @@ Robin Barker, E<lt>Robin.Barker@npl.co.ukE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003, 2005, 2006 by Robin Barker
+Copyright 2003, 2005, 2006, 2007 by Robin Barker
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
 
 =cut
 
-$Id: Link.pm 166 2007-12-28 19:57:22Z rmb1 $
+$Id: Link.pm 175 2007-12-30 16:28:03Z rmb1 $

@@ -1,6 +1,7 @@
 Revision history for Perl distribution File-Copy-Link.
-$Id: Changes 166 2007-12-28 19:57:22Z rmb1 $
+$Id: Changes 174 2007-12-30 15:54:41Z rmb1 $
 
+0.111	2007-12-30
 0.110	2007-12-28
 	Handle old Cwd, where abs_path only accepts directories
 

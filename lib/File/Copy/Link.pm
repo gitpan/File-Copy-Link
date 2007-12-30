@@ -5,8 +5,9 @@ use warnings;
  
 use Carp;
 use File::Copy ();
-use base qw(Exporter);
+
 require Exporter;
+use base qw(Exporter);
 
 our @EXPORT_OK = qw(copylink safecopylink);
 our $VERSION = '0.04';
@@ -71,7 +72,7 @@ script F<copylink>.
  
 =head2 EXPORT
 
-C<copylink> by default, can also export C<safecopylink>.
+Nothing by default, can export C<copylink>, `C<safecopylink>.
 
 =head1 SEE ALSO
 
@@ -83,11 +84,11 @@ Robin Barker, E<lt>Robin.Barker@npl.co.ukE<gt>
 
 =head1 COPYRIGHT AND LICENSE
 
-Copyright 2003, 2006 by Robin Barker
+Copyright 2003, 2006, 2007 by Robin Barker
 
 This library is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself. 
 
 =cut
 
-$Id: Link.pm 167 2007-12-28 22:03:18Z rmb1 $
+$Id: Link.pm 175 2007-12-30 16:28:03Z rmb1 $

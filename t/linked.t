@@ -116,10 +116,10 @@ SKIP: {
 	
     SKIP: {
 	my $got = File::Spec::Link->resolve_path($unresolved);
-	skip "Old Cwd", 1 if !$hasCwd or (!$got and  $Cwd::VERSION < 2.18);
+	skip "Old Cwd", 1 unless $hasCwd and (eval{VERSION Cwd::2.18} or $got);
 	is( File::Spec->canonpath($got),
 	    File::Spec->canonpath($target), "resolve_path - file");
     }
 }
 
-# $Id: linked.t 166 2007-12-28 19:57:22Z rmb1 $
+# $Id: linked.t 174 2007-12-30 15:54:41Z rmb1 $

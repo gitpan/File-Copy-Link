@@ -4,7 +4,6 @@
 
 use strict;
 use warnings;
-our $VERSION = 1.0;
 
 #########################
 
@@ -61,4 +60,4 @@ SKIP: {
     ok( !(-e $link), q{copy deleted});
 }
 
-# $Id: copylink.t 166 2007-12-28 19:57:22Z rmb1 $
+# $Id: copylink.t 174 2007-12-30 15:54:41Z rmb1 $
