@@ -6,7 +6,7 @@ use warnings;
 use File::Spec ();
 use base q(File::Spec); 
 
-our $VERSION = 0.071;
+our $VERSION = 0.072;
 
 # over-ridden class method - just a debugging wrapper
 # 
@@ -171,7 +171,7 @@ sub follow {
 	"Can't readlink ", $self->path, 
     	" : ", 
 	(-l $self->path ? "but it is" : "not"), 
-	"a link"
+	" a link"
     );
 }
  
@@ -391,4 +391,4 @@ it under the same terms as Perl itself.
 
 =cut
 
-$Id: Link.pm 175 2007-12-30 16:28:03Z rmb1 $
+$Id: Link.pm 221 2008-06-12 12:32:23Z rmb1 $

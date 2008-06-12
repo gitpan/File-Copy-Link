@@ -9,7 +9,7 @@ my $args = {
           'EXE_FILES' => [
                            'copylink'
                          ],
-          'VERSION' => '0.111',
+          'VERSION' => '0.112',
           'PREREQ_PM' => {
                            'File::Copy' => 0,
                            'File::Spec' => 0

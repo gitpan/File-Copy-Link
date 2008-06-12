@@ -9,8 +9,14 @@ use warnings;
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
-use Test::More tests => 18;
-BEGIN { use_ok('File::Spec::Link') };
+use Test::More;
+BEGIN{
+    if( !eval{ (symlink q{}, q{}), 1 } ) {
+        plan skip_all => q{'symlink' not implemented};
+    }
+    plan tests => 20;
+    use_ok('File::Spec::Link');
+}
 
 #########################
 
@@ -32,9 +38,6 @@ my $loopy = File::Spec->catfile($dir,'y.lnk');
 open my $fh, ">", $file or die $!;
 print $fh "text\n" or die;
 close $fh or die;
-
-SKIP: {
-    skip "'symlink' not implemented", 17 unless eval{ symlink("",""); 1 }; 
 
     die unless
 	symlink('file.txt',$link) &&
@@ -120,6 +123,8 @@ SKIP: {
 	is( File::Spec->canonpath($got),
 	    File::Spec->canonpath($target), "resolve_path - file");
     }
-}
 
-# $Id: linked.t 174 2007-12-30 15:54:41Z rmb1 $
+    ok( !eval { File::Spec::Link->linked($file); 1 }, "linked failed on file" );
+    like($@, qr/\bnot\s+a\s+link\b/, "not 'nota link' in error message");
+
+# $Id: linked.t 221 2008-06-12 12:32:23Z rmb1 $

@@ -9,8 +9,14 @@ use warnings;
 
 # change 'tests => 1' to 'tests => last_test_to_print';
 
-use Test::More tests => 6;
-BEGIN { use_ok('File::Copy::Link', qw(safecopylink)) };
+use Test::More;
+BEGIN{
+    if( !eval{ (symlink q{}, q{}), 1 } ) {
+        plan skip_all => q{'symlink' not implemented};
+    }
+    plan tests => 6;
+    use_ok('File::Copy::Link', qw(safecopylink) );
+}
 
 #########################
 
@@ -30,9 +36,6 @@ open my $fh, ">", $file or die;
 print $fh "text\n" or die;
 close $fh or die;
 
-SKIP: {
-    skip "'symlink' not implemented", 5 unless eval{ symlink("",""); 1 };
- 
     die unless
 	symlink('file.txt',$link) && -l $link && !compare($file,$link);
 
@@ -55,6 +58,5 @@ SKIP: {
     ok( -e $link, "copy not deleted"); 
     unlink $link or die;
     ok( !(-e $link), "copy deleted");
-}
 
-# $Id: safecopylink.t 166 2007-12-28 19:57:22Z rmb1 $
+# $Id: safecopylink.t 187 2007-12-31 00:29:35Z rmb1 $
