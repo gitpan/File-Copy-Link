@@ -5,11 +5,11 @@ use ExtUtils::MakeMaker;
 my $args = {
           'PL_FILES' => {},
           'NAME' => 'File::Copy::Link',
-          'AUTHOR' => 'Robin Barker <rmb1@npl.co.uk>',
+          'AUTHOR' => 'Robin Barker <rmbarker@cpan.org>',
           'EXE_FILES' => [
                            'copylink'
                          ],
-          'VERSION' => '0.112',
+          'VERSION' => '0.113',
           'PREREQ_PM' => {
                            'File::Copy' => 0,
                            'File::Spec' => 0

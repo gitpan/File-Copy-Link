@@ -13,7 +13,8 @@ t/pod-coverage.t
 t/relative.t
 t/safecopylink.t
 copylink
-META.yml                                Module meta-data (added by MakeMaker)
 examples/copylink
 examples/filespec
 examples/safecopy
+META.json			Module meta-data (added by Module::Build)
+META.yml			Module meta-data (added by MakeMaker)

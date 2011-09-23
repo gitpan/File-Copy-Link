@@ -4,7 +4,7 @@ use Data::Dumper ();
 use List::Util qw(sum);
 use ExtUtils::MM ();
  
-my $dist_version = 0.112;
+my $dist_version = 0.113;
 my $mods_version = sum map {MM->parse_version($_)} <lib/File/*/Link.pm>;
 if ($dist_version < $mods_version ) {
     warn "Declared dist version ($dist_version) is less than\n",
@@ -19,8 +19,9 @@ my %args = (
 	requires	=> { File::Spec => 0, File::Copy => 0, perl => 5.006 }, 
 	recommends	=> { Cwd => 2.18, },
 	script_files	=> [ qw(copylink) ],
-	dist_author  	=> 'Robin Barker <rmb1@npl.co.uk>',
+	dist_author  	=> 'Robin Barker <rmbarker@cpan.org>',
 	build_requires  => { Test::More => 0, File::Temp => 0 }, 
+	configure_requires => { 'Module::Build' => 0.38 }
     );
 
 Module::Build -> new ( %args ) -> create_build_script;
@@ -58,5 +59,5 @@ else {
 	unless $! == 13;	# Permission dened
 }
 
-# $Id: Build.PL 214 2008-04-09 12:54:23Z rmb1 $
+# $Id: Build.PL 266 2011-09-23 15:09:10Z robin $
     
