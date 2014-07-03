@@ -32,7 +32,7 @@ File::Copy::Link(3)
 
 =head1 AUTHOR
 
-Robin Barker, E<lt>Robin.Barker@npl.co.ukE<gt>
+Robin Barker, <RMBarker@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
@@ -43,4 +43,4 @@ it under the same terms as Perl itself.
 
 =cut
 
-$Id: copylink 82 2006-07-26 08:55:37Z rmb1 $
+$Id: copylink 278 2011-09-24 00:27:05Z robin $

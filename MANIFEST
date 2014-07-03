@@ -16,5 +16,5 @@ copylink
 examples/copylink
 examples/filespec
 examples/safecopy
-META.json			Module meta-data (added by Module::Build)
-META.yml			Module meta-data (added by MakeMaker)
+META.yml
+META.json

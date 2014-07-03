@@ -1,10 +1,10 @@
 {
-   "abstract" : "Perl extension for replacing a link by a copy of the linked file.",
+   "abstract" : "extension for replacing a link by a copy of the linked file",
    "author" : [
       "Robin Barker <rmbarker@cpan.org>"
    ],
    "dynamic_config" : 1,
-   "generated_by" : "Module::Build version 0.38, CPAN::Meta::Converter version 2.112150",
+   "generated_by" : "Module::Build version 0.4205",
    "license" : [
       "perl_5"
    ],
@@ -16,8 +16,8 @@
    "prereqs" : {
       "build" : {
          "requires" : {
-            "File::Temp" : 0,
-            "Test::More" : 0
+            "File::Temp" : "0",
+            "Test::More" : "0"
          }
       },
       "configure" : {
@@ -30,8 +30,8 @@
             "Cwd" : "2.18"
          },
          "requires" : {
-            "File::Copy" : 0,
-            "File::Spec" : 0,
+            "File::Copy" : "0",
+            "File::Spec" : "0",
             "perl" : "5.006"
          }
       }
@@ -39,11 +39,11 @@
    "provides" : {
       "File::Copy::Link" : {
          "file" : "lib/File/Copy/Link.pm",
-         "version" : "0.04"
+         "version" : "0.06"
       },
       "File::Spec::Link" : {
          "file" : "lib/File/Spec/Link.pm",
-         "version" : "0.072"
+         "version" : "0.073"
       }
    },
    "release_status" : "stable",
@@ -52,5 +52,5 @@
          "http://dev.perl.org/licenses/"
       ]
    },
-   "version" : "0.113"
+   "version" : "0.140"
 }
